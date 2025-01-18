@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 
@@ -8,10 +7,11 @@ import { UserService } from '../services/user.service';
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.css'],
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule]
 })
 export class UserDetailsComponent {
   user: any;
+  isLoading = true; // Tambahkan loading state
 
   constructor(
     private route: ActivatedRoute,
@@ -20,8 +20,14 @@ export class UserDetailsComponent {
 
   ngOnInit(): void {
     const userId = this.route.snapshot.paramMap.get('id') || '';
-    this.userService.getUserById(userId).subscribe(data => {
-      this.user = data;
+    this.userService.getUserById(userId).subscribe({
+      next: (data) => {
+        this.user = data;
+        this.isLoading = false; // Selesai loading
+      },
+      error: () => {
+        this.isLoading = false; // Selesai loading meski error
+      }
     });
   }
 }

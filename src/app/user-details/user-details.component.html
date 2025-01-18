@@ -1,8 +1,13 @@
-<div class="container" *ngIf="user">
-  <h2>{{ user.name }}</h2>
-  <p><strong>Email:</strong> {{ user.email }}</p>
-  <p><strong>Website:</strong> {{ user.website }}</p>
-  <p><strong>Company:</strong> {{ user.company?.name }}</p>
+<div class="container">
+  <div *ngIf="isLoading"> <!-- Tampilkan saat sedang loading -->
+    <p>Loading user details...</p>
+  </div>
 
-  <button [routerLink]="['/']">Back to List</button>
+  <div *ngIf="!isLoading && user"> <!-- Tampilkan detail pengguna saat selesai loading -->
+    <h2>{{ user.name }}</h2>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Phone:</strong> {{ user.phone }}</p>
+    <p><strong>Website:</strong> {{ user.website }}</p>
+    <p><strong>Company:</strong> {{ user.company?.name }}</p>
+  </div>
 </div>
