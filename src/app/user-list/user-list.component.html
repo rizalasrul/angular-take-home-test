@@ -1,0 +1,24 @@
+<div class="container">
+  <div *ngIf="users.length === 0" class="loading-text">Loading users...</div>
+
+  <table *ngIf="users.length > 0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Website</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.website }}</td>
+        <td>
+          <button [routerLink]="['/user', user.id]">Details</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
